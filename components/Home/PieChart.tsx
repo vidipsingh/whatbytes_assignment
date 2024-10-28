@@ -13,24 +13,28 @@ import {
 // Register the chart elements
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+interface DoughnutChartProps {
+  score: number; // Type for score prop
+}
+
 const emojiCenterPlugin = {
-    id: 'emojiCenter',
-    afterDraw: (chart: any) => {
-      const { ctx, chartArea } = chart;
-      const xCenter = (chartArea.left + chartArea.right) / 2;
-      const yCenter = (chartArea.top + chartArea.bottom) / 2;
-  
-      ctx.save();
-      ctx.font = '30px Arial';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('🎯', xCenter, yCenter);
-      ctx.restore();
-    },
-  };
+  id: 'emojiCenter',
+  afterDraw: (chart: { ctx: CanvasRenderingContext2D; chartArea: { left: number; right: number; top: number; bottom: number; }; }) => {
+    const { ctx, chartArea } = chart;
+    const xCenter = (chartArea.left + chartArea.right) / 2;
+    const yCenter = (chartArea.top + chartArea.bottom) / 2;
+
+    ctx.save();
+    ctx.font = '30px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🎯', xCenter, yCenter);
+    ctx.restore();
+  },
+};
 
 // Dynamic DoughnutChart component that accepts score as a prop
-const DoughnutChart = ({ score }: { score: number }) => {
+const DoughnutChart: React.FC<DoughnutChartProps> = ({ score }) => {
   const maxScore = 15; // Maximum score possible
   const remainingScore = maxScore - score;
 

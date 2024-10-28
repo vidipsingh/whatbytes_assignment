@@ -1,5 +1,4 @@
-"use client"
-// LineChartWithDots.tsx
+"use client";
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -8,9 +7,9 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Legend,
+  ChartOptions,
 } from 'chart.js';
 import { Container } from '@mui/material';
 
@@ -20,12 +19,11 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Legend
 );
 
-const LineChartWithDots = () => {
+const LineChartWithDots: React.FC = () => {
   const data = {
     labels: ['0', '', '', '25', '', '', '', '50', '', '', '', '75', '', '', '', '100'],
     datasets: [
@@ -34,31 +32,30 @@ const LineChartWithDots = () => {
         data: [1, 3, 5, 10, 12, 15, 18, 20, 27, 23, 13, 6, 3, 7, 2, 1],
         borderColor: '#000000',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        pointRadius: 5, // Size of the dots
-        pointBackgroundColor: '#495cff', // Color of the dots
-        pointBorderColor: '#fff', // Border color of the dots
-        pointHoverRadius: 8, // Hover size of the dots
+        pointRadius: 5,
+        pointBackgroundColor: '#495cff',
+        pointBorderColor: '#fff',
+        pointHoverRadius: 8,
       },
     ],
   };
 
-  const options = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const, // Must use a specific allowed value like 'top'
+        position: 'top',
       },
       title: {
         display: false,
-        text: '',
       },
     },
     elements: {
       line: {
-        tension: 0.4, // Smoothness of the line
+        tension: 0.4,
       },
       point: {
-        pointStyle: 'circle', // Shape of the dots
+        pointStyle: 'circle',
       },
     },
   };
